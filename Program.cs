@@ -56,7 +56,7 @@ namespace DocumentClientSQL
             sqlCrud.createCollectionIfNotExists(400).Wait();
 
             //Executing a Query
-            sqlCrud.executeSqlQuery("SELECT COUNT(1) as Value_1 FROM c").Wait();
+            sqlCrud.executeSqlQuery("SELECT VALUE COUNT(1) as Value_1 FROM c").Wait();
 
             //Upserting/Inserting a document( Run over a for loop to Insert/Upsert a lot of docs or use the Bulk Executor's BulkUpdate API )
             docObject doc = new docObject()
