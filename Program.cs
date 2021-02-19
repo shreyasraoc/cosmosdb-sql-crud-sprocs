@@ -21,11 +21,11 @@ namespace DocumentClientSQL
              * This code displays the sproc function body after create or update.
              * 
              */
-            SQL_Sprocs sprocs = new SQL_Sprocs("city_docdb", "city_coll", client);
-            string sprocId = "testSproc_1";
+            SQL_Sprocs sprocs = new SQL_Sprocs(<DATABASE_NAME>, <COLLECTION_NAME>, client);
+            string sprocId = <SPROC_NAME>;
 
             //Modify the Values in the Above Object creation call and sproc Name
-            //Create the Sproc
+            //Create the Sproc. Created a dummy sproc here.
             sprocs.createSproc(sprocId, "function () { getContext().getResponse().setBody('Hello Bob!'); }").Wait();
 
             //Read a Stored Procedure
@@ -47,7 +47,7 @@ namespace DocumentClientSQL
              * Use upserts for inserts as well
              * 
              */
-            SQL_CRUD sqlCrud = new SQL_CRUD(client, "city_docdb", "city_coll");
+            SQL_CRUD sqlCrud = new SQL_CRUD(client, <DATABASE_NAME>, <COLLECTION_NAME>);
 
             //Creating a Database
             sqlCrud.createDatabaseIfNotExists().Wait();
@@ -59,6 +59,7 @@ namespace DocumentClientSQL
             sqlCrud.executeSqlQuery("SELECT VALUE COUNT(1) as Value_1 FROM c").Wait();
 
             //Upserting/Inserting a document( Run over a for loop to Insert/Upsert a lot of docs or use the Bulk Executor's BulkUpdate API )
+            //Added Test Values here.
             docObject doc = new docObject()
             {
                 city = "Bangalore",
@@ -69,6 +70,7 @@ namespace DocumentClientSQL
             sqlCrud.upsertDocuments(doc).Wait();
 
             //Deleting a document ( Run over a for loop to delete a lot of docs or use the Bulk Executor BulkDelete API )
+            //( id, partitionKeyValue )
             sqlCrud.deleteDocuments("6", "Bangalore").Wait();
             
             Console.ReadKey();
